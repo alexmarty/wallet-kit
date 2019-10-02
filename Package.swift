@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "wallet-kit",
+    platforms: [
+        .macOS(.v10_12)
+    ],
     products: [
         .library(name: "WalletKit", targets: ["WalletKit"]),
     ],
