@@ -138,4 +138,39 @@ public struct Pass: Codable {
     /// Information used for Value Added Service Protocol transactions.
     /// Available in iOS 9.0.
     public var nfc: PassNFC?
+    
+    /// Defautl initialiazer
+    public init(description: String, formatVersion: Int, organizationName: String, passTypeIdentifier: String, serialNumber: String, teamIdentifier: String, appLaunchURL: String? = nil, associatedStoreIdentifiers: [Double]? = nil, userInfo: [String: String]? = nil, expirationDate: String? = nil, voided: Bool? = nil, beacons: [PassBeacon]? = nil, locations: [PassLocation]? = nil, maxDistance: Double? = nil, relevantDate: String? = nil, boardingPass: PassStructure? = nil, coupon: PassStructure? = nil, eventTicket: PassStructure? = nil, generic: PassStructure? = nil, storeCard: PassStructure? = nil, barcode: PassBarcode? = nil, barcodes: [PassBarcode]? = nil, backgroundColor: String? = nil, foregroundColor: String? = nil, groupingIdentifier: String? = nil, labelColor: String? = nil, logoText: String? = nil, suppressStripShine: Bool? = nil, authenticationToken: String? = nil, webServiceURL: String? = nil, nfc: PassNFC? = nil) {
+        self.description = description
+        self.formatVersion = formatVersion
+        self.organizationName = organizationName
+        self.passTypeIdentifier = passTypeIdentifier
+        self.serialNumber = serialNumber
+        self.teamIdentifier = teamIdentifier
+        self.appLaunchURL = appLaunchURL
+        self.associatedStoreIdentifiers = associatedStoreIdentifiers
+        self.userInfo = userInfo
+        self.expirationDate = expirationDate
+        self.voided = voided
+        self.beacons = beacons
+        self.locations = locations
+        self.maxDistance = maxDistance
+        self.relevantDate = relevantDate
+        self.boardingPass = boardingPass
+        self.coupon = coupon
+        self.eventTicket = eventTicket
+        self.generic = generic
+        self.storeCard = storeCard
+        self.barcode = barcode
+        self.barcodes = barcodes
+        self.backgroundColor = backgroundColor
+        self.foregroundColor = foregroundColor
+        self.groupingIdentifier = groupingIdentifier
+        self.labelColor = labelColor
+        self.logoText = logoText
+        self.suppressStripShine = suppressStripShine
+        self.authenticationToken = authenticationToken
+        self.webServiceURL = webServiceURL
+        self.nfc = nfc
+    }
 }
