@@ -48,15 +48,17 @@ public struct Wallet {
             let keyGeneration = try self.generateKey(directory: temporaryDirectory, on: worker)
             let certificateGeneration = try self.generateCertificate(directory: temporaryDirectory, on: worker)
             return [keyGeneration, certificateGeneration].flatten(on: worker)
-        }).flatMap(to: Data.self, { _ in
-            let passURL = URL(fileURLWithPath: passDirectory, isDirectory: true)
-            let destinationPath = destination ?? temporaryDirectory + "pass.pkpass"
-            let zipURL = URL(fileURLWithPath: destinationPath)
-            return try self.zipPass(passURL: passURL, zipURL: zipURL, on: worker).map { try Data(contentsOf: zipURL) }
-        }).catchMap { error in
-            // Ensure temporary directory is removed after a failure occurs
-            try self.fileManager.removeItem(atPath: temporaryDirectory)
-            throw error
+        })
+            .flatMap { try self.generateSignature(directory: temporaryDirectory, passDirectory: passDirectory, on: worker) }
+            .flatMap(to: Data.self, { _ in
+                let passURL = URL(fileURLWithPath: passDirectory, isDirectory: true)
+                let destinationPath = destination ?? temporaryDirectory + "pass.pkpass"
+                let zipURL = URL(fileURLWithPath: destinationPath)
+                return try self.zipPass(passURL: passURL, zipURL: zipURL, on: worker).map { try Data(contentsOf: zipURL) }
+            }).catchMap { error in
+                // Ensure temporary directory is removed after a failure occurs
+                try self.fileManager.removeItem(atPath: temporaryDirectory)
+                throw error
         }
     }
 }
