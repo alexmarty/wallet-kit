@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PassDataDetectorType: String, Codable {
+public enum DataDetectorType: String, Codable {
     case phoneNumber = "PKDataDetectorTypePhoneNumber"
     case link = "PKDataDetectorTypeLink"
     case address = "PKDataDetectorTypeAddress"

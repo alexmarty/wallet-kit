@@ -7,23 +7,23 @@
 
 import Foundation
 
-public struct PassStructure: Codable {
+public struct Payload: Codable {
     /// Additional fields to be displayed on the front of the pass.
-    public var auxiliaryFields: [PassField]?
+    public var auxiliaryFields: [Field]?
     /// Fields to be on the back of the pass.
-    public var backFields: [PassField]?
+    public var backFields: [Field]?
     /// Fields to be displayed in the header on the front of the pass.
     /// Use header fields sparingly; unlike all other fields, they remain visible when a stack of passes are displayed.
-    public var headerFields: [PassField]?
+    public var headerFields: [Field]?
     /// Fields to be displayed prominently on the front of the pass.
-    public var primaryFields: [PassField]?
+    public var primaryFields: [Field]?
     /// Fields to be displayed on the front of the pass.
-    public var secondaryFields: [PassField]?
+    public var secondaryFields: [Field]?
     /// Required for boarding passes; otherwise not allowed. Type of transit.
-    public var transitType: PassTransitType?
+    public var transitType: TransitType?
     
     /// Defautl initialiazer
-    public init(auxiliaryFields: [PassField]? = nil, backFields: [PassField]? = nil, headerFields: [PassField]? = nil, primaryFields: [PassField]? = nil, secondaryFields: [PassField]? = nil, transitType: PassTransitType?) {
+    public init(auxiliaryFields: [Field]? = nil, backFields: [Field]? = nil, headerFields: [Field]? = nil, primaryFields: [Field]? = nil, secondaryFields: [Field]? = nil, transitType: TransitType?) {
         self.auxiliaryFields = auxiliaryFields
         self.backFields = backFields
         self.headerFields = headerFields

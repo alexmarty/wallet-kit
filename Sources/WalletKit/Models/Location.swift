@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PassLocation: Codable {
+public struct Location: Codable {
     /// Altitude, in meters, of the location.
     public var altitude: Double?
     /// Latitude, in degrees, of the location.

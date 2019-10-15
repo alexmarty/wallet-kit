@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PassValue: Codable {
+public enum Value: Codable {
     case double(Double)
     case string(String)
     
@@ -19,7 +19,7 @@ public enum PassValue: Codable {
             do {
                 self = try .string(container.decode(String.self))
             } catch DecodingError.typeMismatch {
-                throw DecodingError.typeMismatch(PassValue.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Encoded payload not of an expected type"))
+                throw DecodingError.typeMismatch(Value.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Encoded payload not of an expected type"))
             }
         }
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// See: https://docs.lansa.com/14/en/lansa093/content/lansa/intb7_0510.htm
-public enum PassCharacterEncoding: String, Codable {
+public enum CharacterEncoding: String, Codable {
     case utf8 = "utf-8"
     
     case utf16be = "utf-16be"

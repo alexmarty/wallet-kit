@@ -63,9 +63,9 @@ public struct Pass: Codable {
     /// Information about where and when a pass is relevant.
     
     /// Beacons marking locations where the pass is relevant.
-    public var beacons: [PassBeacon]?
+    public var beacons: [Beacon]?
     /// Locations where the pass is relevant. For example, the location of your store.
-    public var locations: [PassLocation]?
+    public var locations: [Location]?
     /// Maximum distance in meters from a relevant latitude and longitude that the pass is relevant. This number is compared to the pass’s default distance and the smaller value is used.
     public var maxDistance: Double?
     /// Recommended for event tickets and boarding passes; otherwise optional.
@@ -78,15 +78,15 @@ public struct Pass: Codable {
     /// Provide exactly one key—the key that corresponds with the pass’s type.
     
     /// Information specific to a boarding pass.
-    public var boardingPass: PassStructure?
+    public var boardingPass: Payload?
     /// Information specific to a coupon.
-    public var coupon: PassStructure?
+    public var coupon: Payload?
     /// Information specific to an event ticket.
-    public var eventTicket: PassStructure?
+    public var eventTicket: Payload?
     /// Information specific to a generic pass.
-    public var generic: PassStructure?
+    public var generic: Payload?
     /// Information specific to a store card.
-    public var storeCard: PassStructure?
+    public var storeCard: Payload?
     
     /// - Visual Appearance Keys
     /// Keys that define the visual style and appearance of the pass.
@@ -97,10 +97,10 @@ public struct Pass: Codable {
     
     /// Information specific to the pass’s barcode. For this dictionary’s keys, see Barcode Dictionary Keys.
     @available(*, deprecated, message: "Deprecated in iOS 9.0 and later; use barcodes instead.")
-    public var barcode: PassBarcode?
+    public var barcode: Barcode?
     /// Information specific to the pass’s barcode. The system uses the first valid barcode dictionary in the array. Additional dictionaries can be added as fallbacks. For this dictionary’s keys, see Barcode Dictionary Keys.
     /// Note: Available only in iOS 9.0 and later.
-    public var barcodes: [PassBarcode]?
+    public var barcodes: [Barcode]?
     /// Background color of the pass, specified as an CSS-style RGB triple. For example, rgb(23, 187, 82).
     public var backgroundColor: String?
     /// Foreground color of the pass, specified as a CSS-style RGB triple. For example, rgb(100, 10, 110).
@@ -137,10 +137,10 @@ public struct Pass: Codable {
     
     /// Information used for Value Added Service Protocol transactions.
     /// Available in iOS 9.0.
-    public var nfc: PassNFC?
+    public var nfc: NFC?
     
     /// Defautl initialiazer
-    public init(description: String, formatVersion: Int, organizationName: String, passTypeIdentifier: String, serialNumber: String, teamIdentifier: String, appLaunchURL: String? = nil, associatedStoreIdentifiers: [Double]? = nil, userInfo: [String: String]? = nil, expirationDate: String? = nil, voided: Bool? = nil, beacons: [PassBeacon]? = nil, locations: [PassLocation]? = nil, maxDistance: Double? = nil, relevantDate: String? = nil, boardingPass: PassStructure? = nil, coupon: PassStructure? = nil, eventTicket: PassStructure? = nil, generic: PassStructure? = nil, storeCard: PassStructure? = nil, barcode: PassBarcode? = nil, barcodes: [PassBarcode]? = nil, backgroundColor: String? = nil, foregroundColor: String? = nil, groupingIdentifier: String? = nil, labelColor: String? = nil, logoText: String? = nil, suppressStripShine: Bool? = nil, authenticationToken: String? = nil, webServiceURL: String? = nil, nfc: PassNFC? = nil) {
+    public init(description: String, formatVersion: Int, organizationName: String, passTypeIdentifier: String, serialNumber: String, teamIdentifier: String, appLaunchURL: String? = nil, associatedStoreIdentifiers: [Double]? = nil, userInfo: [String: String]? = nil, expirationDate: String? = nil, voided: Bool? = nil, beacons: [Beacon]? = nil, locations: [Location]? = nil, maxDistance: Double? = nil, relevantDate: String? = nil, boardingPass: Payload? = nil, coupon: Payload? = nil, eventTicket: Payload? = nil, generic: Payload? = nil, storeCard: Payload? = nil, barcode: Barcode? = nil, barcodes: [Barcode]? = nil, backgroundColor: String? = nil, foregroundColor: String? = nil, groupingIdentifier: String? = nil, labelColor: String? = nil, logoText: String? = nil, suppressStripShine: Bool? = nil, authenticationToken: String? = nil, webServiceURL: String? = nil, nfc: NFC? = nil) {
         self.description = description
         self.formatVersion = formatVersion
         self.organizationName = organizationName

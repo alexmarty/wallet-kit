@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PassTransitType: String, Codable {
+public enum TransitType: String, Codable {
     case air = "PKTransitTypeAir"
     case boat = "PKTransitTypeBoat"
     case bus = "PKTransitTypeBus"

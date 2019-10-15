@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PassBeacon: Codable {
+public struct Beacon: Codable {
     /// Major identifier of a Bluetooth Low Energy location beacon.
     public var major: UInt16?
     /// Minor identifier of a Bluetooth Low Energy location beacon.

@@ -2,14 +2,14 @@ import Core
 import Crypto
 import ZIPFoundation
 
-enum WalletKitError: Error {
+enum WalletError: Error {
     case invalidPassJSON
     case cannotGenerateKey
     case cannotGenerateCertificate
     case cannotGenerateSignature
 }
 
-public struct WalletKit {
+public struct Wallet {
     
     private let certificatePath: String
     private let certificatePassword: String
@@ -17,7 +17,7 @@ public struct WalletKit {
     private let templateDirectoryPath: String
     private let fileManager = FileManager.default
     
-    /// Creates a new `WalletKit`.
+    /// Creates a new `Wallet`.
     /// - parameters:
     ///     - certificatePath: Path to the pass certificate.
     ///     - certificatePassword: Password of the pass certificate.
@@ -50,7 +50,7 @@ public struct WalletKit {
             return [keyGeneration, certificateGeneration].flatten(on: worker)
         }).flatMap(to: Data.self, { _ in
             let passURL = URL(fileURLWithPath: passDirectory, isDirectory: true)
-            let destinationPath = destination ?? temporaryDirectory + "/pass.pkpass"
+            let destinationPath = destination ?? temporaryDirectory + "pass.pkpass"
             let zipURL = URL(fileURLWithPath: destinationPath)
             return try self.zipPass(passURL: passURL, zipURL: zipURL, on: worker).map { try Data(contentsOf: zipURL) }
         }).catchMap { error in
@@ -61,7 +61,7 @@ public struct WalletKit {
     }
 }
 
-private extension WalletKit {
+private extension Wallet {
     
     func preparePass(pass: Pass, temporaryDirectory: String, passDirectory: String, on worker: Worker) throws -> EventLoopFuture<Void> {
         let promise = worker.eventLoop.newPromise(Void.self)
@@ -76,7 +76,7 @@ private extension WalletKit {
                 do {
                     passData = try jsonEncoder.encode(pass)
                 } catch {
-                    throw WalletKitError.invalidPassJSON
+                    throw WalletError.invalidPassJSON
                 }
                 self.fileManager.createFile(atPath: passDirectory + "pass.json", contents: passData, attributes: nil)
                 promise.succeed()
@@ -122,7 +122,7 @@ private extension WalletKit {
                                     "-passout",
                                     "pass:" + certificatePassword, on: worker) { _ in }.map(to: Void.self, { result in
                                         guard result == 0 else {
-                                            throw WalletKitError.cannotGenerateKey
+                                            throw WalletError.cannotGenerateKey
                                         }
                                     })
     }
@@ -140,7 +140,7 @@ private extension WalletKit {
                                     "-passin",
                                     "pass:" + certificatePassword, on: worker) { _ in }.map(to: Void.self, { result in
                                         guard result == 0 else {
-                                            throw WalletKitError.cannotGenerateCertificate
+                                            throw WalletError.cannotGenerateCertificate
                                         }
                                     })
     }
@@ -165,7 +165,7 @@ private extension WalletKit {
                                     "-passin",
                                     "pass:" + certificatePassword, on: worker) { _ in }.map(to: Void.self, { result in
                                         guard result == 0 else {
-                                            throw WalletKitError.cannotGenerateCertificate
+                                            throw WalletError.cannotGenerateCertificate
                                         }
                                     })
     }

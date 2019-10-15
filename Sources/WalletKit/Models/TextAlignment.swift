@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PassTextAlignment: String, Codable {
+public enum TextAlignment: String, Codable {
     case left = "PKTextAlignmentLeft"
     case center = "PKTextAlignmentCenter"
     case right = "PKTextAlignmentRight"
