@@ -33,12 +33,13 @@ public struct Wallet {
     /// Generate a signed .pkpass file
     /// - parameters:
     ///     - pass: A Pass object containing all pass information, ensure the `passTypeIdentifier` and `teamIdentifier` match those in supplied certificate.
+    ///     - buildPath: The path of files to be generated, if nil the files will be generated to the execution directory (generally the case if the result Data is used).
     ///     - destination: The destination of the .pkpass to be saved, if nil the pass will be saved to the execution directory (generally the case if the result Data is used).
     ///     - arguments: An array of arguments to pass to the program.
     ///     - worker: Worker to perform async task on.
     /// - returns: A future containing the data of the generated pass.
-    public func generatePass(pass: Pass, destination: String? = nil, on worker: Worker) throws -> Future<Data> {
-        let directory = fileManager.currentDirectoryPath
+    public func generatePass(pass: Pass, buildPath: String? = nil, destination: String? = nil, on worker: Worker) throws -> Future<Data> {
+        let directory = buildPath ?? fileManager.currentDirectoryPath
         let temporaryDirectory = directory + UUID().uuidString + "/"
         let passDirectory = temporaryDirectory + "pass/"
         
