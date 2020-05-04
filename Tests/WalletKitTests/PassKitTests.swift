@@ -1,12 +1,12 @@
 import XCTest
-@testable import PassKit
+@testable import WalletKit
 
-final class PassKitTests: XCTestCase {
+final class WalletKitTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(PassKit().text, "Hello, World!")
+//        XCTAssertEqual(WalletKit().text, "Hello, World!")
     }
 
     static var allTests = [

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/vapor/open-crypto.git",
         "state": {
           "branch": null,
-          "revision": "06d26edb8e28295bb7103b4f950d5ea58d634c1b",
-          "version": "4.0.0-alpha.2"
+          "revision": "90c49bc68ee6d992fa13cf84ca8fc54b97eaf4cc",
+          "version": "4.0.0-beta.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "9201908b54578aa33f1d1826a5a680aca8991843",
-          "version": "2.8.0"
+          "revision": "e876fb37410e0036b98b5361bb18e6854739572b",
+          "version": "2.16.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
         "state": {
           "branch": null,
-          "revision": "edbeaa39b426e54702194b0a601342322f01e400",
-          "version": "0.9.9"
+          "revision": "ec32d62d412578542c0ffb7a6ce34d3e64b43b94",
+          "version": "0.9.11"
         }
       }
     ]

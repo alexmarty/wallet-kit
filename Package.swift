@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,15 +6,13 @@ import PackageDescription
 let package = Package(
     name: "wallet-kit",
     platforms: [
-        .macOS(.v10_12)
+        .macOS(.v10_15)
     ],
     products: [
         .library(name: "WalletKit", targets: ["WalletKit"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-nio.git", from: "2.2.0"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.16.0"),
         .package(url: "https://github.com/weichsel/ZIPFoundation.git", .upToNextMajor(from: "0.9.0")),
         .package(url: "https://github.com/vapor/open-crypto.git", from: "4.0.0-alpha.2"),
     ],
@@ -23,9 +21,15 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "WalletKit",
-            dependencies: ["NIO", "ZIPFoundation", "OpenCrypto"]),
+            dependencies: [
+                .product(name: "NIO", package: "swift-nio"),
+                .product(name: "ZIPFoundation", package: "ZIPFoundation"),
+                .product(name: "OpenCrypto", package: "open-crypto"),
+        ]),
         .testTarget(
             name: "WalletKitTests",
-            dependencies: ["WalletKit"]),
+            dependencies: [
+                .target(name: "WalletKit")
+        ]),
     ]
 )
