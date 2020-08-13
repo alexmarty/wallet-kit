@@ -1,6 +1,6 @@
 import Foundation
 import NIO
-import OpenCrypto
+import Crypto
 import ZIPFoundation
 
 enum WalletKitError: Error {
