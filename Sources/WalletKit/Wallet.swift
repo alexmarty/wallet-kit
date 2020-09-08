@@ -1,5 +1,6 @@
 import Foundation
-import Vapor
+import NIO
+import Crypto
 import ZIPFoundation
 
 enum WalletKitError: Error {
