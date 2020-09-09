@@ -168,8 +168,8 @@ public struct Pass: Codable {
                 logoText: String? = nil,
                 suppressStripShine: Bool? = nil,
                 authenticationToken: String? = nil,
-                webServiceURL: String?,
-                nfc: PassNFC?) {
+                webServiceURL: String? = nil,
+                nfc: PassNFC? = nil) {
         self.description = description
         self.formatVersion = formatVersion
         self.organizationName = organizationName
