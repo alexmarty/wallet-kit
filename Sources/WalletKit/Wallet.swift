@@ -1,6 +1,6 @@
 import Foundation
 import NIO
-import OpenCrypto
+import Crypto
 import ZIPFoundation
 
 enum WalletKitError: Error {
@@ -10,7 +10,7 @@ enum WalletKitError: Error {
     case cannotGenerateSignature
 }
 
-public struct WalletKit {
+public struct Wallet {
     
     private let certificatePath: String
     private let certificatePassword: String
@@ -18,7 +18,7 @@ public struct WalletKit {
     private let templateDirectoryPath: String
     private let fileManager = FileManager.default
     
-    /// Creates a new `WalletKit`.
+    /// Creates a new `Wallet`.
     /// - parameters:
     ///     - certificatePath: Path to the pass certificate.
     ///     - certificatePassword: Password of the pass certificate.
@@ -65,7 +65,7 @@ public struct WalletKit {
     }
 }
 
-private extension WalletKit {
+private extension Wallet {
     
     func preparePass(pass: Pass, temporaryDirectory: String, passDirectory: String, on eventLoop: EventLoop) -> EventLoopFuture<Void> {
         let promise = eventLoop.makePromise(of: Void.self)
