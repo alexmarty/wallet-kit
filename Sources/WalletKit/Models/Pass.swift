@@ -138,4 +138,68 @@ public struct Pass: Codable {
     /// Information used for Value Added Service Protocol transactions.
     /// Available in iOS 9.0.
     public var nfc: PassNFC?
+
+    public init(description: String,
+                formatVersion: Int,
+                organizationName: String,
+                passTypeIdentifier: String,
+                serialNumber: String,
+                teamIdentifier: String,
+                appLaunchURL: String?,
+                associatedStoreIdentifiers: [Double]?,
+                userInfo: [String: String]?,
+                expirationDate: String?,
+                voided: Bool?,
+                beacons: [PassBeacon]?,
+                locations: [PassLocation]?,
+                maxDistance: Double?,
+                relevantDate: String?,
+                boardingPass: PassStructure?,
+                coupon: PassStructure?,
+                eventTicket: PassStructure?,
+                generic: PassStructure?,
+                storeCard: PassStructure?,
+                barcode: PassBarcode?,
+                barcodes: [PassBarcode]?,
+                backgroundColor: String?,
+                foregroundColor: String?,
+                groupingIdentifier: String?,
+                labelColor: String?,
+                logoText: String?,
+                suppressStripShine: Bool?,
+                authenticationToken: String?,
+                webServiceURL: String?,
+                nfc: PassNFC?) {
+        self.description = description
+        self.formatVersion = formatVersion
+        self.organizationName = organizationName
+        self.passTypeIdentifier = passTypeIdentifier
+        self.serialNumber = serialNumber
+        self.teamIdentifier = teamIdentifier
+        self.appLaunchURL = appLaunchURL
+        self.associatedStoreIdentifiers = associatedStoreIdentifiers
+        self.userInfo = userInfo
+        self.expirationDate = expirationDate
+        self.voided = voided
+        self.beacons = beacons
+        self.locations = locations
+        self.maxDistance = maxDistance
+        self.relevantDate = relevantDate
+        self.boardingPass = boardingPass
+        self.coupon = coupon
+        self.eventTicket = eventTicket
+        self.generic = generic
+        self.storeCard = storeCard
+        self.barcode = barcode
+        self.barcodes = barcodes
+        self.backgroundColor = backgroundColor
+        self.foregroundColor = foregroundColor
+        self.groupingIdentifier = groupingIdentifier
+        self.labelColor = labelColor
+        self.logoText = logoText
+        self.suppressStripShine = suppressStripShine
+        self.authenticationToken = authenticationToken
+        self.webServiceURL = webServiceURL
+        self.nfc = nfc
+    }
 }
