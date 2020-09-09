@@ -22,12 +22,12 @@ public struct PassStructure: Codable {
     /// Required for boarding passes; otherwise not allowed. Type of transit.
     public var transitType: PassTransitType?
 
-    public init(auxiliaryFields: [PassField]?,
-                backFields: [PassField]?,
-                headerFields: [PassField]?,
-                primaryFields: [PassField]?,
-                secondaryFields: [PassField]?,
-                transitType: PassTransitType?) {
+    public init(auxiliaryFields: [PassField]? = nil,
+                backFields: [PassField]? = nil,
+                headerFields: [PassField]? = nil,
+                primaryFields: [PassField]? = nil,
+                secondaryFields: [PassField]? = nil,
+                transitType: PassTransitType? = nil) {
         self.auxiliaryFields = auxiliaryFields
         self.backFields = backFields
         self.headerFields = headerFields

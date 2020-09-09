@@ -32,13 +32,13 @@ public struct PassField: Codable {
     /// Value of the field, for example, 42.
     public var value: PassValue?
 
-    public init(attributedValue: PassValue?,
-                changeMessage: String?,
-                dataDetectorTypes: [PassDataDetectorType]?,
+    public init(attributedValue: PassValue? = nil,
+                changeMessage: String? = nil,
+                dataDetectorTypes: [PassDataDetectorType]? = nil,
                 key: String,
-                label: String?,
-                textAligment: PassTextAlignment?,
-                value: PassValue?) {
+                label: String? = nil,
+                textAligment: PassTextAlignment? = nil,
+                value: PassValue? = nil) {
         self.attributedValue = attributedValue
         self.changeMessage = changeMessage
         self.dataDetectorTypes = dataDetectorTypes
