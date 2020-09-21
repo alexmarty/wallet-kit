@@ -40,7 +40,7 @@ public struct Wallet {
     /// - returns: A future containing the data of the generated pass.
     public func generatePass(pass: Pass, destination: String? = nil, on eventLoop: EventLoop) throws -> EventLoopFuture<Data> {
         let directory = fileManager.currentDirectoryPath
-        let temporaryDirectory = directory + UUID().uuidString + "/"
+        let temporaryDirectory = directory + "/\(UUID().uuidString)/"
         let passDirectory = temporaryDirectory + "pass/"
         let passURL = URL(fileURLWithPath: passDirectory, isDirectory: true)
         let destinationPath = destination ?? temporaryDirectory + "/pass.pkpass"
