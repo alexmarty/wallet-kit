@@ -39,7 +39,7 @@ public struct Wallet {
     ///     - worker: Worker to perform async task on.
     /// - returns: A future containing the data of the generated pass.
     public func generatePass(pass: Pass, destination: String? = nil, on eventLoop: EventLoop) throws -> EventLoopFuture<Data> {
-        let directory = fileManager.currentDirectoryPath
+        let directory = fileManager.currentDirectoryPath + "/tmp"
         let temporaryDirectory = directory + "/\(UUID().uuidString)/"
         let passDirectory = temporaryDirectory + "pass/"
         let passURL = URL(fileURLWithPath: passDirectory, isDirectory: true)
@@ -100,7 +100,7 @@ private extension Wallet {
                 contents.forEach({ (item) in
                     guard let data = self.fileManager.contents(atPath: directory + item) else { return }
                     let hash = Insecure.SHA1.hash(data: data)
-                    manifest[item] = hash.description
+                    manifest[item] = hash.compactMap { String(format: "%02x", $0) }.joined()
                 })
                 let manifestData = try JSONSerialization.data(withJSONObject: manifest, options: .prettyPrinted)
                 self.fileManager.createFile(atPath: directory + "manifest.json", contents: manifestData, attributes: nil)
