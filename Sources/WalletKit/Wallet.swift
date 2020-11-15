@@ -40,14 +40,14 @@ public struct Wallet {
     /// - returns: A future containing the data of the generated pass.
     public func generatePass(pass: Pass, destination: String? = nil, on eventLoop: EventLoop) throws -> EventLoopFuture<Data> {
         let directory = fileManager.currentDirectoryPath + "/tmp"
-        let temporaryDirectory = directory + "/\(UUID().uuidString)/"
-        let passDirectory = temporaryDirectory + "pass/"
+        let temporaryDirectory = directory + "/\(UUID().uuidString)"
+        let passDirectory = temporaryDirectory + "/pass"
         let passURL = URL(fileURLWithPath: passDirectory, isDirectory: true)
         let destinationPath = destination ?? temporaryDirectory + "/pass.pkpass"
         let zipURL = URL(fileURLWithPath: destinationPath)
         
-        let prepare = preparePass(pass: pass, temporaryDirectory: temporaryDirectory, passDirectory: passDirectory, on: eventLoop)
-        return prepare.flatMap { _ in
+        return preparePass(pass: pass, temporaryDirectory: temporaryDirectory, passDirectory: passDirectory, on: eventLoop)
+        .flatMap { _ in
             return self.generateManifest(directory: passDirectory, on: eventLoop)
         }.flatMap { _ in
             return self.generateKey(directory: temporaryDirectory, on: eventLoop)
@@ -82,7 +82,7 @@ private extension Wallet {
                 } catch {
                     throw WalletKitError.invalidPassJSON
                 }
-                self.fileManager.createFile(atPath: passDirectory + "pass.json", contents: passData, attributes: nil)
+                self.fileManager.createFile(atPath: passDirectory + "/pass.json", contents: passData, attributes: nil)
                 promise.succeed(())
             } catch {
                 promise.fail(error)
@@ -98,12 +98,12 @@ private extension Wallet {
                 let contents = try self.fileManager.contentsOfDirectory(atPath: directory)
                 var manifest: [String: String] = [:]
                 contents.forEach({ (item) in
-                    guard let data = self.fileManager.contents(atPath: directory + item) else { return }
+                    guard let data = self.fileManager.contents(atPath: directory + "/\(item)") else { return }
                     let hash = Insecure.SHA1.hash(data: data)
                     manifest[item] = hash.compactMap { String(format: "%02x", $0) }.joined()
                 })
                 let manifestData = try JSONSerialization.data(withJSONObject: manifest, options: .prettyPrinted)
-                self.fileManager.createFile(atPath: directory + "manifest.json", contents: manifestData, attributes: nil)
+                self.fileManager.createFile(atPath: directory + "/manifest.json", contents: manifestData, attributes: nil)
                 promise.succeed(())
             } catch {
                 promise.fail(error)
@@ -113,7 +113,7 @@ private extension Wallet {
     }
     
     func generateKey(directory: String, on eventLoop: EventLoop) -> EventLoopFuture<Void> {
-        let keyPath = directory + "key.pem"
+        let keyPath = directory + "/key.pem"
         return Process.asyncExecute("openssl",
                                     "pkcs12",
                                     "-in",
@@ -132,7 +132,7 @@ private extension Wallet {
     }
     
     func generateCertificate(directory: String, on eventLoop: EventLoop) -> EventLoopFuture<Void> {
-        let certPath = directory + "cert.pem"
+        let certPath = directory + "/cert.pem"
         return Process.asyncExecute("openssl",
                                     "pkcs12",
                                     "-in",
@@ -154,15 +154,15 @@ private extension Wallet {
                                     "smime",
                                     "-sign",
                                     "-signer",
-                                    directory + "cert.pem",
+                                    directory + "/cert.pem",
                                     "-inkey",
-                                    directory + "key.pem",
+                                    directory + "/key.pem",
                                     "-certfile",
                                     wwdrPath,
                                     "-in",
-                                    passDirectory + "manifest.json",
+                                    passDirectory + "/manifest.json",
                                     "-out",
-                                    passDirectory + "signature",
+                                    passDirectory + "/signature",
                                     "-outform",
                                     "der",
                                     "-binary",
